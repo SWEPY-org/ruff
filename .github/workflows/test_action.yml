@@ -1,0 +1,38 @@
+---
+on: [push]
+
+jobs:
+    ruff:
+        uses: Karine-Bauch/test_github_actions/.github/workflows/ruff_action.yml@trunk
+        with:
+            project_path: 'tests/ruff_project'
+            ruff_version: 'latest'
+
+    destructive_ruff:
+        runs-on: ubuntu-latest
+        env:
+            PROJECT_PATH: 'tests/ruff_destructive_project'
+        container:
+            image: kbauchswe/ruff:latest
+            options: --user root
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Run Ruff Linter
+                run: |
+                    ruff check $PROJECT_PATH > /dev/null 2>&1 || EXIT_CODE=$?;
+                    if [ $EXIT_CODE -eq 1 ]; then
+                        echo "Ruff check found issues as it should"
+                    else
+                        echo "Ruff check did not find issues as it should"
+                        exit 1
+                    fi
+                    ruff format --check $PROJECT_PATH > /dev/null 2>&1 || EXIT_CODE=$?;
+                    if [ $EXIT_CODE -eq 1 ]; then
+                        echo "Ruff format found issues as it should"
+                    else
+                        echo "Ruff format did not found issues as it should"
+                        exit 1
+                    fi
