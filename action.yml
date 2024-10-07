@@ -6,7 +6,6 @@ inputs:
     description: 'Project to lint'
     required: false
     default: '.'
-    type: string
 
 runs:
   using: 'composite'
