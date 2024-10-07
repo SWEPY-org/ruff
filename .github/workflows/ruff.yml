@@ -1,33 +1,15 @@
-on:
-    workflow_call:
-        inputs:
-            project_path:
-                description: 'Project to lint'
-                required: false
-                default: '.'
-                type: string
-            ruff_version:
-                description: 'the ruff version to use'
-                required: false
-                default: '0'
-                type: string
+name: Lint with Ruff
+
+on: [ push, pull_request ]
+
+permissions:
+  contents: read
 
 jobs:
-    ruff:
-        runs-on: ubuntu-latest
-        env:
-            PROJECT_PATH: ${{ inputs.project_path }}
-            RUFF_CHECK_OPTIONS: ''
-            RUFF_FORMAT_OPTIONS: '--check'
-        container:
-            image: swepy/ruff:${{ inputs.ruff_version }}
-            options: --user root
-
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-
-            - name: Run Ruff Linter
-              run: |
-                  ruff check $RUFF_CHECK_OPTIONS $PROJECT_PATH
-                  ruff format $RUFF_FORMAT_OPTIONS $PROJECT_PATH
+  ruff:
+    runs-on: ubuntu-latest
+    container:
+      image: swepy/ruff:latest
+      options: --user root
+    steps:
+      - uses: SWEPY-org/ruff@trunk
