@@ -1,5 +1,8 @@
 name: 'Ruff Python Linter'
 description: 'Run Ruff, an extremely fast Python linter, on your Python code.'
+branding:
+  icon: 'zap'
+  color: 'purple'
 
 inputs:
   project_path:
