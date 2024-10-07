@@ -9,7 +9,7 @@ on:
             ruff_version:
                 description: 'the ruff version to use'
                 required: false
-                default: 'latest'
+                default: '0'
                 type: string
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
             RUFF_CHECK_OPTIONS: ''
             RUFF_FORMAT_OPTIONS: '--check'
         container:
-            image: kbauchswe/ruff:${{ inputs.ruff_version }}
+            image: swepy/ruff:${{ inputs.ruff_version }}
             options: --user root
 
         steps:
