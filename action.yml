@@ -7,11 +7,6 @@ inputs:
     required: false
     default: '.'
     type: string
-  ruff_version:
-    description: 'the ruff version to use'
-    required: false
-    default: '0'
-    type: string
 
 runs:
   using: 'composite'
