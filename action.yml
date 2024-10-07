@@ -15,12 +15,11 @@ inputs:
 
 runs:
   using: 'composite'
+  env:
+    RUFF_VERSION: ${{ inputs.ruff_version }}
   steps:
     - uses: actions/checkout@v4
-    - name: pull swepy/ruff
-      shell: sh
-      run: |
-        docker pull swepy/ruff:${{ inputs.ruff_version }}
+    - uses: docker://swepy/ruff:$RUFF_VERSION
     - name: Run Ruff Linter
       shell: sh
       env:
