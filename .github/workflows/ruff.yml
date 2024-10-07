@@ -33,7 +33,7 @@ jobs:
           echo "The job is run on a poorly written project and must fail."
           echo ${{ job.status }} > ci_job_status.txt
       - name: Upload ci_job_status.txt
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ci_job_status
           path: ci_job_status.txt
