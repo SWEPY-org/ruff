@@ -19,7 +19,7 @@ runs:
     - uses: actions/checkout@v4
     - uses: docker://swepy/ruff:0.6.9
     - name: Run Ruff Linter
-      shell: bash
+      shell: sh
       env:
         PROJECT_PATH: ${{ inputs.project_path }}
         RUFF_CHECK_OPTIONS: ''
