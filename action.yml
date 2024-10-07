@@ -1,5 +1,6 @@
 name: 'Ruff'
 description: 'Run Ruff, an extremely fast Python linter, on your Python code.'
+
 inputs:
   project_path:
     description: 'Project to lint'
@@ -11,22 +12,12 @@ inputs:
     required: false
     default: '0'
     type: string
+
 runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v4
-    - uses: docker://swepy/ruff:${{ inputs.ruff_version }}
-      inputs:
-        project_path:
-          description: 'Project to lint'
-          required: false
-          default: '.'
-          type: string
-        ruff_version:
-          description: 'the ruff version to use'
-          required: false
-          default: '0'
-          type: string
+    - uses: docker://swepy/ruff:0.6.9
     - name: Run Ruff Linter
       shell: bash
       env:
