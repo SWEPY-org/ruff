@@ -21,13 +21,13 @@ jobs:
     container:
       image: swepy/ruff:latest
       options: --user root
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: Run Ruff on destructive_project
         uses: SWEPY-org/ruff@trunk
         with:
           project_path: 'tests/ruff_destructive_project'
-        continue-on-error: true
       - name: Check job status
         run: |
           echo "The job is run on a poorly written project and must fail."
