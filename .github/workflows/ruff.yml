@@ -29,10 +29,12 @@ jobs:
         with:
           project_path: 'tests/ruff_destructive_project'
       - name: Check job status
+        if: ${{ always() }}
         run: |
           echo "The job is run on a poorly written project and must fail."
           echo ${{ job.status }} > ci_job_status.txt
       - name: Upload ci_job_status.txt
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: ci_job_status
