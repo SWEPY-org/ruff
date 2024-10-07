@@ -27,7 +27,7 @@ jobs:
       - name: Run Ruff on destructive_project
         uses: SWEPY-org/ruff@trunk
         with:
-          project_path: 'tests/ruff_project'
+          project_path: 'tests/ruff_destructive_project'
       - name: Check job status
         if: ${{ always() }}
         run: |
