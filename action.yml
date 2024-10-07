@@ -15,7 +15,18 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v4
-    - uses: "docker://swepy/ruff:${{ inputs.ruff_version }}"
+    - uses: docker://swepy/ruff:${{ inputs.ruff_version }}
+      inputs:
+        project_path:
+          description: 'Project to lint'
+          required: false
+          default: '.'
+          type: string
+        ruff_version:
+          description: 'the ruff version to use'
+          required: false
+          default: '0'
+          type: string
     - name: Run Ruff Linter
       shell: bash
       env:
