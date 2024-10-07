@@ -1,0 +1,59 @@
+name: Ruff
+
+on: [ push ]
+
+permissions:
+  contents: read
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    container:
+      image: swepy/ruff:latest
+      options: --user root
+    steps:
+      - uses: SWEPY-org/ruff@trunk
+        with:
+            project_path: 'tests/ruff_project'
+
+  ruff_destructive:
+    runs-on: ubuntu-latest
+    container:
+      image: swepy/ruff:latest
+      options: --user root
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Ruff on destructive_project
+        uses: SWEPY-org/ruff@trunk
+        with:
+          project_path: 'tests/ruff_destructive_project'
+      - name: Check job status
+        if: ${{ always() }}
+        run: |
+          echo "The job is run on a poorly written project and must fail."
+          echo ${{ job.status }} > ci_job_status.txt
+      - name: Upload ci_job_status.txt
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci_job_status
+          path: ci_job_status.txt
+
+  ruff_destructive_check:
+    needs: ruff_destructive
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download ci_job_status artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ci_job_status
+      - name: Verify ruff_destructive failure
+        run: |
+          if grep -q "success" "ci_job_status.txt"; then
+            echo "ruff_destructive succeeded when it should have failed."
+            exit 1
+          else
+            echo "ruff_destructive failed as expected."
+          fi

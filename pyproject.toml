@@ -1,0 +1,14 @@
+[tool.ruff]
+# Activer certains linter courants
+lint.select = [
+    "E",  # Erreurs de pycodestyle
+    "W",  # Avertissements de pycodestyle
+    "F",  # Erreurs de flake8
+    "D",  # Erreurs de docstring (pydocstyle)
+]
+
+# Désactiver certaines règles si nécessaire
+lint.ignore = ["D203", "D212", "D104"]
+
+# Optionnel : Si vous avez besoin de spécifier la longueur des lignes, par exemple
+line-length = 88
