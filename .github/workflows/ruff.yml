@@ -22,7 +22,7 @@ jobs:
       image: swepy/ruff:latest
       options: --user root
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Ruff on destructive_project
         uses: SWEPY-org/ruff@trunk
         with:
@@ -42,9 +42,9 @@ jobs:
     needs: ruff_destructive
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Download ci_job_status artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ci_job_status
       - name: Verify ruff_destructive failure
