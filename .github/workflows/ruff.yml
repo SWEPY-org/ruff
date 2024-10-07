@@ -13,3 +13,5 @@ jobs:
       options: --user root
     steps:
       - uses: SWEPY-org/ruff@trunk
+        with:
+            project_path: 'tests/ruff_project'
