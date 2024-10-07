@@ -1,4 +1,4 @@
-name: 'Ruff'
+name: 'Ruff Python Linter'
 description: 'Run Ruff, an extremely fast Python linter, on your Python code.'
 
 inputs:
