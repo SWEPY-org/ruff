@@ -27,6 +27,7 @@ jobs:
         uses: SWEPY-org/ruff@trunk
         with:
           project_path: 'tests/ruff_destructive_project'
+        continue-on-error: true
       - name: Check job status
         run: |
           echo "The job is run on a poorly written project and must fail."
@@ -36,7 +37,6 @@ jobs:
         with:
           name: ci_job_status
           path: ci_job_status.txt
-    continue-on-error: true  # Equivalent to allow_failure in GitLab CI
 
   ruff_destructive_check:
     needs: ruff_destructive
